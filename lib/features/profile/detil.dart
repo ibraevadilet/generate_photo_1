@@ -1,4 +1,5 @@
 import 'package:ai_photo1/theme/app_text_styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetilSettings extends StatelessWidget {
@@ -6,36 +7,42 @@ class DetilSettings extends StatelessWidget {
     Key? key,
     required this.text,
     required this.image,
+    required this.onTap,
   }) : super(key: key);
 
   final String text;
   final String image;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 56,
-      width: double.infinity,
-      child: Row(
-        children: [
-          const SizedBox(width: 15),
-          Image.asset(
-            image,
-            width: 24,
-          ),
-          const SizedBox(width: 14),
-          Text(
-            text,
-            style: AppTextStyles.s16W400(),
-          ),
-          const Spacer(),
-          const Icon(
-            Icons.chevron_right_rounded,
-            size: 34,
-            color: Colors.white,
-          ),
-          const SizedBox(width: 10),
-        ],
+    return CupertinoButton(
+      padding: EdgeInsets.zero,
+      onPressed: onTap,
+      child: SizedBox(
+        height: 56,
+        width: double.infinity,
+        child: Row(
+          children: [
+            const SizedBox(width: 15),
+            Image.asset(
+              image,
+              width: 24,
+            ),
+            const SizedBox(width: 14),
+            Text(
+              text,
+              style: AppTextStyles.s16W400(),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.chevron_right_rounded,
+              size: 34,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 10),
+          ],
+        ),
       ),
     );
   }
