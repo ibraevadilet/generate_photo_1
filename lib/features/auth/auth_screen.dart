@@ -21,12 +21,12 @@ class AuthScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const SizedBox(height: 32),
-                Image.asset(
-                  AppImages.pngwing,
-                  height: 70,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 100),
+                  child: Image.asset(
+                    AppImages.appLogo,
+                  ),
                 ),
-                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -34,9 +34,10 @@ class AuthScreen extends StatelessWidget {
                       'Hello!',
                       style: AppTextStyles.s32W700(),
                     ),
-                    const Icon(
-                      Icons.handshake,
-                      color: Colors.amber,
+                    const SizedBox(width: 5),
+                    Image.asset(
+                      AppImages.handSmileIcon,
+                      height: 30,
                     )
                   ],
                 ),
@@ -60,10 +61,7 @@ class AuthScreen extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.facebook,
-                            color: Colors.white,
-                          ),
+                          Image.asset(AppImages.googleLogo),
                           const SizedBox(width: 5),
                           Text(
                             'Continue with Google',
@@ -83,13 +81,8 @@ class AuthScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(
-                        Icons.apple,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 5),
                       Text(
-                        'Continue with Apple',
+                        'Continue as a guest',
                         style: AppTextStyles.s16W700(),
                       )
                     ],

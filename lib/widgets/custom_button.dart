@@ -20,6 +20,7 @@ class CustomButton extends StatelessWidget {
     this.child,
     this.borderColor,
     this.textColor = Colors.white,
+    this.gradient,
   });
 
   final double? width;
@@ -36,6 +37,7 @@ class CustomButton extends StatelessWidget {
   final String? text;
   final Function() onPress;
   final Widget? child;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +52,7 @@ class CustomButton extends StatelessWidget {
           width: width,
           padding: EdgeInsets.all(contentPadding),
           decoration: BoxDecoration(
+            gradient: gradient,
             color: color,
             borderRadius: BorderRadius.circular(radius),
             border: borderColor != null

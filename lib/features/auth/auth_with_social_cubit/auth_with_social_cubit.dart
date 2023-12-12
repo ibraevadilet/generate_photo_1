@@ -32,7 +32,7 @@ class AuthWithSocialCubit extends Cubit<AuthWithSocialState> {
         await SharedSettings.setString(AppTextConstants.email, userEmail);
         await SharedSettings.setString(AppTextConstants.image, userImage);
 
-        AppRouting.pushAndPopUntilFunction(const OnBoardingRoute());
+        AppRouting.pushAndPopUntilFunction(const GenerateAndOnBoardingRoute());
         emit(const AuthWithSocialState.success());
       } catch (e) {
         AppSnackBars.showErrorSnackBar(e.toString());

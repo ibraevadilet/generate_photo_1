@@ -73,7 +73,7 @@ class _BottomNavigatorState extends State<BottomNavigatorScreen> {
 
 List<Widget> pages = [
   const HomeScreen(),
-  const GenerateScreen(),
+  const GenerateAndOnBoardingScreen(),
   const MyCollectionsScreen(),
   const ProfileScreen(),
 ];

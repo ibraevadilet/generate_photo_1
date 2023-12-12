@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     final name = await SharedSettings.getString(AppTextConstants.name);
 
-    if (name == null) {
+    if (name != null) {
       AppRouting.pushAndPopUntilFunction(const AuthRoute());
     } else {
       AppRouting.pushAndPopUntilFunction(const BottomNavigatorRoute());
@@ -36,9 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(120),
+          padding: const EdgeInsets.all(10),
           child: Image.asset(
-            AppImages.pngwing,
+            AppImages.appLogo2,
           ),
         ),
       ),
