@@ -8,3 +8,4 @@ abstract class AppColors {
   static const Color purpleE707FA = Color(0xffE707FA);
   static const Color purple200131 = Color(0xff200131);
 }
+

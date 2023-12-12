@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (name != null) {
       AppRouting.pushAndPopUntilFunction(const AuthRoute());
     } else {
-      AppRouting.pushAndPopUntilFunction(const BottomNavigatorRoute());
+      AppRouting.pushAndPopUntilFunction(const SubscriptionRoute());
     }
   }
 

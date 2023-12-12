@@ -11,5 +11,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: HomeDetailRoute.page),
         AutoRoute(page: BottomNavigatorRoute.page),
         AutoRoute(page: GenerateResultRoute.page),
+        AutoRoute(page: SubscriptionRoute.page),
       ];
 }

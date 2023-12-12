@@ -31,6 +31,11 @@ abstract class AppTextStyles {
         fontSize: 15,
         fontWeight: FontWeight.w400,
       );
+  static TextStyle s16W400({Color? color}) => TextStyle(
+        color: color ?? Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      );
   static TextStyle s15W500({Color? color}) => TextStyle(
         color: color ?? Colors.white,
         fontSize: 15,
@@ -41,16 +46,17 @@ abstract class AppTextStyles {
         fontSize: 15,
         fontWeight: FontWeight.w600,
       );
+  static TextStyle s12W600({Color? color}) => TextStyle(
+        color: color ?? Colors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.w700,
+      );
   static TextStyle s15W700({Color? color}) => TextStyle(
         color: color ?? Colors.white,
         fontSize: 15,
         fontWeight: FontWeight.w700,
       );
-  static TextStyle s16W400({Color? color}) => TextStyle(
-        color: color ?? Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      );
+
   static TextStyle s16W500({Color? color}) => TextStyle(
         color: color ?? Colors.white,
         fontSize: 16,
@@ -83,6 +89,11 @@ abstract class AppTextStyles {
       );
   static TextStyle s24W700({Color? color}) => TextStyle(
         fontSize: 24,
+        color: color ?? Colors.white,
+        fontWeight: FontWeight.w700,
+      );
+  static TextStyle s14W700({Color? color}) => TextStyle(
+        fontSize: 14,
         color: color ?? Colors.white,
         fontWeight: FontWeight.w700,
       );
