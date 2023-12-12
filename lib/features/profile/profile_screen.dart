@@ -1,7 +1,7 @@
 import 'package:ai_photo1/features/profile/detil.dart';
-import 'package:flutter/material.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
+import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
               height: 104,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColors.overlay1B181C,
+                color: AppColors.blackColor1B181C,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
@@ -83,7 +83,7 @@ class ProfileScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColors.overlay1B181C,
+                color: AppColors.blackColor1B181C,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
