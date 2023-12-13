@@ -23,10 +23,12 @@ class AuthWithSocialCubit extends Cubit<AuthWithSocialState> {
         final userName = googleUser.displayName ?? '';
         final userEmail = googleUser.email;
         final userImage = googleUser.photoUrl ?? '';
+        final userId = googleUser.id;
 
         print('userName ----   ---- $userName');
+        print('userId ----   ---- $userId');
         print('userEmail ----   ---- $userEmail');
-        print('userEmail ----   ---- $userImage');
+        print('userImage ----   ---- $userImage');
 
         await SharedSettings.setString(AppTextConstants.name, userName);
         await SharedSettings.setString(AppTextConstants.email, userEmail);
