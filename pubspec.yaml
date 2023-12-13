@@ -27,6 +27,7 @@ dependencies:
   share_plus: ^7.2.1
   gallery_saver: ^2.3.2
   apphud: ^2.3.2
+  http: ^0.13.3
   
 
 dev_dependencies:

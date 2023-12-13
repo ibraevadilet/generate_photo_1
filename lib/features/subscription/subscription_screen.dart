@@ -1,3 +1,4 @@
+import 'package:ai_photo1/core/purchase/check_restore.dart';
 import 'package:ai_photo1/features/subscription/widgets/select_price_widget.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
@@ -13,7 +14,7 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
-  int id = 0;
+  int id = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +77,9 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   CustomButton(
                     radius: 50,
                     color: Colors.white,
-                    onPress: () {},
+                    onPress: () async {
+                      await AppRestore.buyProduct();
+                    },
                     text: 'Continue',
                     gradient: const LinearGradient(
                       colors: [
@@ -115,10 +118,15 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         height: 10,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        'Restore',
-                        style: AppTextStyles.s12W400(
-                          color: AppColors.textColor5B575D,
+                      GestureDetector(
+                        onTap: () {
+                          AppRestore.showRestoreDoalog(context);
+                        },
+                        child: Text(
+                          'Restore',
+                          style: AppTextStyles.s12W400(
+                            color: AppColors.textColor5B575D,
+                          ),
                         ),
                       ),
                     ],

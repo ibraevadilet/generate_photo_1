@@ -1,5 +1,7 @@
+import 'package:ai_photo1/core/functions/push_router_func.dart';
 import 'package:ai_photo1/core/images/app_images.dart';
 import 'package:ai_photo1/features/auth/auth_with_social_cubit/auth_with_social_cubit.dart';
+import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/custom_button.dart';
@@ -48,7 +50,6 @@ class AuthScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
-
                 BlocBuilder<AuthWithSocialCubit, AuthWithSocialState>(
                   builder: (context, state) {
                     return CustomButton(
@@ -78,7 +79,10 @@ class AuthScreen extends StatelessWidget {
                   radius: 60,
                   color: Colors.black,
                   borderColor: Colors.white,
-                  onPress: () {},
+                  onPress: () {
+                    AppRouting.pushAndPopUntilFunction(
+                        GenerateAndOnBoardingRoute(isFromAuth: true));
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

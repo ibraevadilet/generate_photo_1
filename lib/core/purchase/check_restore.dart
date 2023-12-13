@@ -1,7 +1,9 @@
+import 'package:ai_photo1/core/functions/push_router_func.dart';
+import 'package:ai_photo1/core/purchase/premium.dart';
+import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:apphud/apphud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AppRestore {
   static Future<bool> isRestore() async {
@@ -10,10 +12,24 @@ class AppRestore {
     return hasPremiumAccess || hasActiveSubscription;
   }
 
+  static Future<void> buyProduct() async {
+    var paywalls = await Apphud.paywalls();
+    await Apphud.purchase(
+      product: paywalls?.paywalls.first.products!.first,
+    ).whenComplete(
+      () async {
+        if (await Apphud.hasActiveSubscription() ||
+            await Apphud.hasPremiumAccess()) {
+          await CheckPremium.setSubscrp();
+          AppRouting.pushAndPopUntilFunction(const BottomNavigatorRoute());
+        }
+      },
+    );
+  }
+
   static Future<void> showRestoreDoalog(BuildContext context) async {
     if (await isRestore()) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setBool("ISBUY", true);
+      await CheckPremium.setSubscrp();
       showDialog(
         context: context,
         builder: (BuildContext context) => CupertinoAlertDialog(

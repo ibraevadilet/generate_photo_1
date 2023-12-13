@@ -32,7 +32,8 @@ class AuthWithSocialCubit extends Cubit<AuthWithSocialState> {
 
         await saveData(userModel);
 
-        AppRouting.pushAndPopUntilFunction(const GenerateAndOnBoardingRoute());
+        AppRouting.pushAndPopUntilFunction(
+            GenerateAndOnBoardingRoute(isFromAuth: true));
         emit(const AuthWithSocialState.success());
       } catch (e) {
         AppSnackBars.showErrorSnackBar(e.toString());

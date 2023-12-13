@@ -1,3 +1,4 @@
+import 'package:ai_photo1/features/generate/model/generate_model.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/spaces.dart';
@@ -14,7 +15,18 @@ final List<String> listPromts = [
 
 @RoutePage()
 class HomeDetailScreen extends StatelessWidget {
-  const HomeDetailScreen({super.key});
+  const HomeDetailScreen({
+    super.key,
+    required this.model,
+    required this.eye,
+    required this.likeCount,
+    required this.isLiked,
+  });
+
+  final PhotoModel model;
+  final int eye;
+  final int likeCount;
+  final bool isLiked;
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +51,14 @@ class HomeDetailScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    const CircleAvatar(
+                    CircleAvatar(
                       backgroundImage: CachedNetworkImageProvider(
-                        'https://www.supersprint.com/public/img/01-504900-504930-504960-504990-505020.jpg',
+                        model.avatar,
                       ),
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'SmokePlumes',
+                      model.name,
                       style: AppTextStyles.s14W400(
                         color: Colors.white,
                       ),
@@ -73,8 +85,7 @@ class HomeDetailScreen extends StatelessWidget {
                   ),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
-                    imageUrl:
-                        'https://www.supersprint.com/public/img/01-504900-504930-504960-504990-505020.jpg',
+                    imageUrl: model.image,
                   ),
                 ),
                 const SizedBox(height: 22),
@@ -85,7 +96,7 @@ class HomeDetailScreen extends StatelessWidget {
                         const Icon(Icons.remove_red_eye, color: Colors.white),
                         const SizedBox(width: 5),
                         Text(
-                          '10.3k',
+                          eye.toString(),
                           style: AppTextStyles.s14W400(color: Colors.white),
                         )
                       ],
@@ -93,10 +104,11 @@ class HomeDetailScreen extends StatelessWidget {
                     const Spacer(),
                     Row(
                       children: [
-                        const Icon(Icons.favorite, color: Colors.white),
+                        Icon(isLiked ? Icons.favorite : Icons.favorite_border,
+                            color: Colors.white),
                         const SizedBox(width: 5),
                         Text(
-                          '10.3k',
+                          likeCount.toString(),
                           style: AppTextStyles.s14W400(color: Colors.white),
                         )
                       ],

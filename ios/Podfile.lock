@@ -634,6 +634,10 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - apphud (2.3.2):
+    - ApphudSDK (= 2.8.8)
+    - Flutter
+  - ApphudSDK (2.8.8)
   - BoringSSL-GRPC (0.0.24):
     - BoringSSL-GRPC/Implementation (= 0.0.24)
     - BoringSSL-GRPC/Interface (= 0.0.24)
@@ -787,6 +791,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - apphud (from `.symlinks/plugins/apphud/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
@@ -802,6 +807,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - AppAuth
+    - ApphudSDK
     - BoringSSL-GRPC
     - Firebase
     - FirebaseAppCheckInterop
@@ -823,6 +829,8 @@ SPEC REPOS:
     - PromisesObjC
 
 EXTERNAL SOURCES:
+  apphud:
+    :path: ".symlinks/plugins/apphud/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   firebase_core:
@@ -847,6 +855,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  apphud: 5ca6f25a0d8b9264a3f8a597f2d13f4a24941707
+  ApphudSDK: ef62166ff111404f1fa01a4cd4552d266b778565
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: c29d4c2e96fe31374d9dab458a99d7a488d3a735
   Firebase: 414ad272f8d02dfbf12662a9d43f4bba9bec2a06
@@ -879,4 +889,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: bcf274041d6b121005964c339c521c59836125e5
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.12.1

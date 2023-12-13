@@ -1,17 +1,37 @@
+import 'dart:math';
+
 import 'package:ai_photo1/core/functions/push_router_func.dart';
+import 'package:ai_photo1/features/generate/model/generate_model.dart';
 import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/spaces.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class ImageWidget extends StatelessWidget {
-  const ImageWidget({super.key});
+class ImageWidget extends StatefulWidget {
+  const ImageWidget({super.key, required this.model});
+  final PhotoModel model;
+
+  @override
+  State<ImageWidget> createState() => _ImageWidgetState();
+}
+
+class _ImageWidgetState extends State<ImageWidget> {
+  int likeCount = Random().nextInt(1000) + 50;
+  int eye = Random().nextInt(1000) + 50;
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
-        AppRouting.pushFunction(const HomeDetailRoute());
+        AppRouting.pushFunction(
+          HomeDetailRoute(
+            model: widget.model,
+            eye: eye,
+            likeCount: likeCount,
+            isLiked: isLiked,
+          ),
+        );
       },
       child: Stack(
         children: [
@@ -24,8 +44,7 @@ class ImageWidget extends StatelessWidget {
             ),
             child: CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl:
-                  'https://www.supersprint.com/public/img/01-504900-504930-504960-504990-505020.jpg',
+              imageUrl: widget.model.image,
             ),
           ),
           Positioned(
@@ -43,10 +62,14 @@ class ImageWidget extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.person, color: Colors.white),
+                  CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(
+                      widget.model.avatar,
+                    ),
+                  ),
                   const SizedBox(width: 5),
                   Text(
-                    'Name',
+                    widget.model.name,
                     style: AppTextStyles.s12W400(color: Colors.white),
                   ),
                 ],
@@ -61,7 +84,7 @@ class ImageWidget extends StatelessWidget {
                 const Icon(Icons.remove_red_eye, color: Colors.white),
                 const SizedBox(width: 5),
                 Text(
-                  '10.3k',
+                  eye.toString(),
                   style: AppTextStyles.s12W400(color: Colors.white),
                 )
               ],
@@ -72,10 +95,22 @@ class ImageWidget extends StatelessWidget {
             right: 8,
             child: Row(
               children: [
-                const Icon(Icons.favorite, color: Colors.white),
+                GestureDetector(
+                  onTap: () {
+                    isLiked = !isLiked;
+                    if (isLiked) {
+                      likeCount++;
+                    } else {
+                      likeCount--;
+                    }
+                    setState(() {});
+                  },
+                  child: Icon(isLiked ? Icons.favorite : Icons.favorite_border,
+                      color: Colors.white),
+                ),
                 const SizedBox(width: 5),
                 Text(
-                  '10.3k',
+                  likeCount.toString(),
                   style: AppTextStyles.s12W400(color: Colors.white),
                 )
               ],

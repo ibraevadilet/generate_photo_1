@@ -1,10 +1,23 @@
+import 'dart:math';
+
+import 'package:ai_photo1/features/generate/model/generate_model.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/spaces.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-class CollectionIyemWidget extends StatelessWidget {
-  const CollectionIyemWidget({super.key});
+class CollectionIyemWidget extends StatefulWidget {
+  const CollectionIyemWidget({super.key, required this.model});
+
+  final PhotoModel model;
+
+  @override
+  State<CollectionIyemWidget> createState() => _CollectionIyemWidgetState();
+}
+
+class _CollectionIyemWidgetState extends State<CollectionIyemWidget> {
+  int likeCount = Random().nextInt(1000) + 50;
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -17,8 +30,7 @@ class CollectionIyemWidget extends StatelessWidget {
           width: context.width,
           height: 108,
           child: CachedNetworkImage(
-            imageUrl:
-                'https://www.audi-mediacenter.com/system/production/cars/138/photos/1867677cf2b6e777bf23c2ec6dddc8b639f4bc61/web_1440_Audi_nanuk_quattro_concept_2013.jpg?1698934601',
+            imageUrl: widget.model.image,
             fit: BoxFit.cover,
           ),
         ),
@@ -28,15 +40,23 @@ class CollectionIyemWidget extends StatelessWidget {
           child: Row(
             children: [
               InkWell(
-                onTap: () {},
-                child: Image.asset(
-                  'assets/images/like.png',
-                  width: 20,
+                onTap: () {
+                  isLiked = !isLiked;
+                  if (isLiked) {
+                    likeCount++;
+                  } else {
+                    likeCount--;
+                  }
+                  setState(() {});
+                },
+                child: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(width: 5),
               Text(
-                '1.2k',
+                likeCount.toString(),
                 style: AppTextStyles.s12W400(
                   color: Colors.white,
                 ),

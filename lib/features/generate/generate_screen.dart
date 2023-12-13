@@ -1,18 +1,25 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:ai_photo1/core/constants/app_url.dart';
 import 'package:ai_photo1/core/functions/push_router_func.dart';
 import 'package:ai_photo1/core/images/app_images.dart';
+import 'package:ai_photo1/core/purchase/premium.dart';
 import 'package:ai_photo1/features/generate/widgets/size_widget.dart';
 import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/custom_button.dart';
 import 'package:ai_photo1/widgets/custom_text_field.dart';
+import 'package:ai_photo1/widgets/styled_toasts.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 @RoutePage()
 class GenerateAndOnBoardingScreen extends StatefulWidget {
-  const GenerateAndOnBoardingScreen({super.key});
+  const GenerateAndOnBoardingScreen({super.key, this.isFromAuth = false});
+  final bool isFromAuth;
 
   @override
   State<GenerateAndOnBoardingScreen> createState() =>
@@ -24,7 +31,7 @@ class _GenerateAndOnBoardingScreenState
   final controller = TextEditingController();
   final List<String> listPromts = [
     'Disney Pixar',
-    'Disney Pixar2',
+    'Create a anime image of a bear flying in a sky',
     'Disney Pixar3',
     'Disney Pixar4',
   ];
@@ -54,7 +61,9 @@ class _GenerateAndOnBoardingScreenState
   ];
 
   String selectedStyle = '';
-  String selectedSize = '';
+  String selectedSize = '256x256';
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +140,7 @@ class _GenerateAndOnBoardingScreenState
                               onTap: () {
                                 setState(() {
                                   controller.text = e.text;
-                                  selectedStyle = e.image;
+                                  selectedStyle = e.text;
                                 });
                               },
                               child: Stack(
@@ -141,7 +150,7 @@ class _GenerateAndOnBoardingScreenState
                                     padding: const EdgeInsets.all(3),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(12),
-                                      color: selectedStyle == e.image
+                                      color: selectedStyle == e.text
                                           ? AppColors.purpleA106F4
                                           : Colors.black,
                                     ),
@@ -215,6 +224,7 @@ class _GenerateAndOnBoardingScreenState
               ),
               const Spacer(),
               CustomButton(
+                isLoading: isLoading,
                 gradient: const LinearGradient(
                   colors: [
                     AppColors.purpleA106F4,
@@ -223,8 +233,24 @@ class _GenerateAndOnBoardingScreenState
                 ),
                 radius: 50,
                 color: AppColors.purpleA106F4,
-                onPress: () {
-                  AppRouting.pushFunction(const GenerateResultRoute());
+                onPress: () async {
+                  final isPro = await CheckPremium.getSubscrp();
+                  if (isPro) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await generateImage(
+                        controller.text, selectedSize, selectedStyle);
+                    setState(() {
+                      isLoading = false;
+                    });
+                  } else {
+                    await AppRouting.pushFunction(const SubscriptionRoute());
+                    if (widget.isFromAuth) {
+                      AppRouting.pushAndPopUntilFunction(
+                          const BottomNavigatorRoute());
+                    }
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -259,4 +285,28 @@ class StyleModel {
     required this.image,
     required this.text,
   });
+}
+
+Future<void> generateImage(String promt, String size, String style) async {
+  const url = 'https://api.openai.com/v1/images/generations';
+  final data = {"model": "dall-e-3", "prompt": promt, "n": 1, "size": size};
+
+  final result = await http.post(
+    Uri.parse(url),
+    headers: {
+      "Authorization": "Bearer ${AppUrl.gptApiKey}",
+      "Content-Type": "application/json"
+    },
+    body: jsonEncode(data),
+  );
+  if (result.body.contains('error')) {
+    var error = jsonDecode(result.body);
+    AppSnackBars.showErrorSnackBar(error['error']['message'].toString());
+  } else {
+    var jsnRespoce = jsonDecode(result.body);
+    final imageUrl = jsnRespoce['data'][0]['url'];
+    AppRouting.pushFunction(
+      GenerateResultRoute(image: imageUrl, promt: promt, style: style),
+    );
+  }
 }

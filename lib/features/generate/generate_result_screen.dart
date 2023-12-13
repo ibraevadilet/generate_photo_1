@@ -1,7 +1,11 @@
+import 'package:ai_photo1/core/constants/app_test_constants.dart';
+import 'package:ai_photo1/core/functions/push_router_func.dart';
 import 'package:ai_photo1/features/generate/cubits/generate_result_cubit/generate_result_cubit.dart';
+import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
 import 'package:ai_photo1/theme/app_text_styles.dart';
 import 'package:ai_photo1/widgets/custom_button.dart';
+import 'package:ai_photo1/widgets/shared_pref_settings.dart';
 import 'package:ai_photo1/widgets/spaces.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,7 +16,16 @@ import 'package:share_plus/share_plus.dart';
 
 @RoutePage()
 class GenerateResultScreen extends StatefulWidget {
-  const GenerateResultScreen({super.key});
+  const GenerateResultScreen({
+    super.key,
+    required this.image,
+    required this.promt,
+    required this.style,
+  });
+
+  final String image;
+  final String promt;
+  final String style;
 
   @override
   State<GenerateResultScreen> createState() => _GenerateResultScreenState();
@@ -20,8 +33,8 @@ class GenerateResultScreen extends StatefulWidget {
 
 class _GenerateResultScreenState extends State<GenerateResultScreen> {
   bool isShowForAll = false;
-  final String imageUrl =
-      'https://www.supersprint.com/public/img/01-504900-504930-504960-504990-505020.jpg';
+  late final String imageUrl = widget.image;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -89,23 +102,31 @@ class _GenerateResultScreenState extends State<GenerateResultScreen> {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  'Create a cyberpunk image of a T-rex flying in an iron suit. Use bright colors',
+                  widget.promt,
                   style: AppTextStyles.s14W400(
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  'Style',
-                  style: AppTextStyles.s16W700(
-                    color: AppColors.textColor5B575D,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  'Digital art',
-                  style: AppTextStyles.s14W400(
-                    color: Colors.white,
+                Visibility(
+                  visible: widget.style.isNotEmpty,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Style',
+                        style: AppTextStyles.s16W700(
+                          color: AppColors.textColor5B575D,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        widget.style,
+                        style: AppTextStyles.s14W400(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -145,29 +166,65 @@ class _GenerateResultScreenState extends State<GenerateResultScreen> {
                       ),
                     ),
                     const SizedBox(width: 12),
-                    Expanded(
-                      child:
-                          BlocBuilder<GenerateResultCubit, GenerateResultState>(
-                        builder: (context, state) {
-                          return CustomButton(
-                            isLoading: state.loding,
-                            gradient: const LinearGradient(
-                              colors: [
-                                AppColors.purpleA106F4,
-                                AppColors.purpleE707FA,
-                              ],
-                            ),
-                            radius: 50,
-                            color: AppColors.purpleA106F4,
-                            onPress: () {
-                              context
-                                  .read<GenerateResultCubit>()
-                                  .saveDataPhoto();
-                            },
-                            text: 'Save',
-                          );
-                        },
-                      ),
+                    FutureBuilder(
+                      future: SharedSettings.getString(AppTextConstants.name),
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data == null) {
+                            return Expanded(
+                              child: BlocBuilder<GenerateResultCubit,
+                                  GenerateResultState>(
+                                builder: (context, state) {
+                                  return CustomButton(
+                                    isLoading: state.loding,
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        AppColors.purpleA106F4,
+                                        AppColors.purpleE707FA,
+                                      ],
+                                    ),
+                                    radius: 50,
+                                    color: AppColors.purpleA106F4,
+                                    onPress: () {
+                                      AppRouting.pushAndPopUntilFunction(
+                                          const AuthRoute());
+                                    },
+                                    text: 'Login Google',
+                                  );
+                                },
+                              ),
+                            );
+                          } else {
+                            return Expanded(
+                              child: BlocBuilder<GenerateResultCubit,
+                                  GenerateResultState>(
+                                builder: (context, state) {
+                                  return CustomButton(
+                                    isLoading: state.loding,
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        AppColors.purpleA106F4,
+                                        AppColors.purpleE707FA,
+                                      ],
+                                    ),
+                                    radius: 50,
+                                    color: AppColors.purpleA106F4,
+                                    onPress: () {
+                                      context
+                                          .read<GenerateResultCubit>()
+                                          .saveDataPhoto(
+                                              imageUrl, isShowForAll);
+                                    },
+                                    text: 'Save',
+                                  );
+                                },
+                              ),
+                            );
+                          }
+                        } else {
+                          return const SizedBox();
+                        }
+                      },
                     ),
                   ],
                 )
