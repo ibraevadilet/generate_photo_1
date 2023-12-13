@@ -24,7 +24,10 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
@@ -49,20 +52,12 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCIE3hleUiNIhmNe_E9BbJXIH6Evt8YgfA',
-    appId: '1:1015487595910:android:c826558d15024d02e35807',
-    messagingSenderId: '1015487595910',
-    projectId: 'generate-photo-1',
-    storageBucket: 'generate-photo-1.appspot.com',
-  );
-
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBg4HktumfAorS6yh5RdKSvJAy0UU46hmE',
-    appId: '1:1015487595910:ios:aa4da6cffc3b2cb9e35807',
-    messagingSenderId: '1015487595910',
-    projectId: 'generate-photo-1',
-    storageBucket: 'generate-photo-1.appspot.com',
+    apiKey: 'AIzaSyCc-7Fg5HE_2onG3dwu_1J_CyiCmZyne1Y',
+    appId: '1:1096080484530:ios:6c1446bf3a1109219401ab',
+    messagingSenderId: '1096080484530',
+    projectId: 'aiphoto1-d11e4',
+    storageBucket: 'aiphoto1-d11e4.appspot.com',
     iosBundleId: 'com.example.aiPhoto1',
   );
 }
