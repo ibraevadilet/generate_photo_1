@@ -48,6 +48,7 @@ class AuthScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(),
+
                 BlocBuilder<AuthWithSocialCubit, AuthWithSocialState>(
                   builder: (context, state) {
                     return CustomButton(

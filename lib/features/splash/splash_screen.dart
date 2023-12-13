@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
     final name = await SharedSettings.getString(AppTextConstants.name);
 
-    if (name != null) {
+    if (name == null) {
       AppRouting.pushAndPopUntilFunction(const AuthRoute());
     } else {
       AppRouting.pushAndPopUntilFunction(const BottomNavigatorRoute());
