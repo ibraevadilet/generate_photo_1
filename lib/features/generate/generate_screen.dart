@@ -30,27 +30,41 @@ class _GenerateAndOnBoardingScreenState
     extends State<GenerateAndOnBoardingScreen> {
   final controller = TextEditingController();
   final List<String> listPromts = [
-    'Disney Pixar',
-    'Create a anime image of a bear flying in a sky',
-    'Disney Pixar3',
-    'Disney Pixar4',
+    'Create a image of a man in love',
   ];
+
   final List<StyleModel> styles = [
     StyleModel(
       image: AppImages.styleImage1,
-      text: 'Digital Art',
+      text: 'Anime',
     ),
     StyleModel(
       image: AppImages.styleImage2,
-      text: 'Cyberpunk',
+      text: '2d',
     ),
     StyleModel(
       image: AppImages.styleImage3,
-      text: 'Surrealism',
+      text: '3d',
     ),
     StyleModel(
       image: AppImages.styleImage4,
-      text: 'Illustrated',
+      text: 'Abstract',
+    ),
+    StyleModel(
+      image: AppImages.styleImage4,
+      text: 'Black & White',
+    ),
+    StyleModel(
+      image: AppImages.styleImage4,
+      text: 'Cartoon',
+    ),
+    StyleModel(
+      image: AppImages.styleImage4,
+      text: 'Cosmic',
+    ),
+    StyleModel(
+      image: AppImages.styleImage4,
+      text: 'Cuberpunk',
     ),
   ];
 
@@ -97,6 +111,7 @@ class _GenerateAndOnBoardingScreenState
                               onTap: () {
                                 setState(() {
                                   controller.text = e;
+                                  selectedStyle = '';
                                 });
                               },
                               child: Container(
@@ -139,7 +154,8 @@ class _GenerateAndOnBoardingScreenState
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  controller.text = e.text;
+                                  controller.text =
+                                      'Create a ${e.text} image of a man in love';
                                   selectedStyle = e.text;
                                 });
                               },

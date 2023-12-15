@@ -1,3 +1,4 @@
+import 'package:ai_photo1/core/constants/app_url.dart';
 import 'package:ai_photo1/core/purchase/check_restore.dart';
 import 'package:ai_photo1/features/subscription/widgets/select_price_widget.dart';
 import 'package:ai_photo1/theme/app_colors.dart';
@@ -14,7 +15,13 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
-  int id = 1;
+  List<String> productIds = [
+    AppUrl.producId1,
+    AppUrl.producId2,
+    AppUrl.producId3,
+  ];
+
+  late String selectedId = productIds.first;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,32 +60,32 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   ),
                   const SizedBox(height: 12),
                   SelectPriceWidget(
-                    isActive: id == 1,
+                    isActive: selectedId == productIds[0],
                     title: 'Life time',
                     subTitle: 'Billed once',
                     price: 49.99,
-                    onTap: () => setState(() => id = 1),
+                    onTap: () => setState(() => selectedId = productIds[0]),
                   ),
                   SelectPriceWidget(
-                    isActive: id == 2,
+                    isActive: selectedId == productIds[1],
                     title: '3 days free trial',
                     subTitle: 'Billed annually',
                     price: 29.99,
-                    onTap: () => setState(() => id = 2),
+                    onTap: () => setState(() => selectedId = productIds[1]),
                   ),
                   SelectPriceWidget(
-                    isActive: id == 3,
+                    isActive: selectedId == productIds[2],
                     title: '7 days',
                     subTitle: 'Billed weekly',
                     price: 6.99,
-                    onTap: () => setState(() => id = 3),
+                    onTap: () => setState(() => selectedId = productIds[2]),
                   ),
                   const SizedBox(height: 12),
                   CustomButton(
                     radius: 50,
                     color: Colors.white,
                     onPress: () async {
-                      await AppRestore.buyProduct();
+                      await AppRestore.buyProduct(selectedId);
                     },
                     text: 'Continue',
                     gradient: const LinearGradient(

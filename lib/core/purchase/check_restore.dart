@@ -1,7 +1,9 @@
+import 'package:ai_photo1/core/constants/app_url.dart';
 import 'package:ai_photo1/core/functions/push_router_func.dart';
 import 'package:ai_photo1/core/purchase/premium.dart';
 import 'package:ai_photo1/routes/mobile_auto_router.gr.dart';
 import 'package:apphud/apphud.dart';
+import 'package:apphud/models/apphud_models/apphud_product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +14,10 @@ class AppRestore {
     return hasPremiumAccess || hasActiveSubscription;
   }
 
-  static Future<void> buyProduct() async {
+  static Future<void> buyProduct(String productId) async {
     var paywalls = await Apphud.paywalls();
     await Apphud.purchase(
-      product: paywalls?.paywalls.first.products!.first,
+      product: ApphudProduct(productId: productId, store: AppUrl.stor),
     ).whenComplete(
       () async {
         if (await Apphud.hasActiveSubscription() ||

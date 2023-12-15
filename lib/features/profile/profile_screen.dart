@@ -186,12 +186,12 @@ class ProfileScreen extends StatelessWidget {
                       onTap: () {
                         AppRouting.pushFunction(
                           WebViewRoute(
-                            title: 'Terms of Use',
+                            title: 'Terms & Conditions',
                             url: AppUrl.termOfUse,
                           ),
                         );
                       },
-                      text: 'Terms of Use',
+                      text: 'Terms & Conditions',
                       image: 'assets/images/terms.png',
                     ),
                     const DivideR(),
